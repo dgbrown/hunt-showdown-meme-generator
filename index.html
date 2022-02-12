@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://pixijs.download/release/pixi.js"></script>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+            * {
+                font-family: 'Oswald', sans-serif;
+            }
+            body {
+                margin: 0;
+                background-color: rgb(20, 20, 24);
+                color: rgb(255, 248, 248);
+            }
+            .topbar {
+                padding: 20px;
+                background-color: rgb(27, 27, 31);
+            }
+            footer {
+                text-align: center;
+                padding: 20px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            .appname h1{
+                margin: 0
+            }
+            .appname .subtitle {
+                margin-right: 10px;
+            }
+            a {
+                color: grey;
+                text-decoration: none;
+            }
+            a:hover {
+                color: rgb(165, 165, 165);
+            }
+            .content {
+                padding: 20px;
+                text-align: center;
+            }
+            .file-upload-btn, button {
+                display: inline-block;
+                color: black;
+                padding: 8px 16px;
+                background-color: rgb(255, 248, 248);
+                font-size: 1.5rem;
+                border: 2px solid black;
+            }
+            .file-upload-btn:hover {
+                background-color: white;
+                color: rgb(27, 27, 31);
+                border-color: rgb(27, 27, 31);
+            }
+            #piji-app-container {
+                margin-top: 40px;
+            }
+            .btn-bar {
+                margin: 40px 0;
+                display: flex;
+                column-gap: 20px;
+                justify-content: center;
+            }
+            .hat-bar {
+                margin: 0px 0;
+                display: flex;
+                justify-content: center;
+                column-gap: 30px;
+            }
+            .hat-bar input {
+                display: none;
+            }
+            .hat-bar input:checked+label {
+                border: 1px solid white;
+            }
+            .hat-bar label {
+                display: inline-block;
+                background-position: center;
+                background-size: cover;
+                padding: 60px;
+                border: 1px solid transparent;
+            }
+        </style>
+        <script src="main.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <header class="topbar">
+            <div class="appname">
+                <h1>Hunt: Showdown Meme Machine</h1>
+                <span class="subtitle">Throw on a hat, cowboy ;)</span><a href="https://www.reddit.com/r/huntshowdown" target="_blank">/r/huntshowdown</a>
+            </div>
+        </header>
+        <div class="content">
+            <div id="start-layout">
+                <h2>Pick a meme and lets add some cowboy hats</h2>
+                <div class="btn-bar">
+                    <label class="file-upload-btn">
+                        Upload Image
+                        <input style="display:none;" id="upload-btn" type="file"/>
+                    </label>
+                </div>
+            </div>
+            <div id="full-layout" style="display:none">
+                <div class="hat-bar">
+                        <div>
+                            <input id="hat-option-01" type="radio" name="hat" value="0" checked/>
+                            <label for="hat-option-01" class="hat-radio-option" style="background-image: url('images/stamps/hat01.png')">
+                        </div>
+                        <div>
+                            <input id="hat-option-02" type="radio" name="hat" value="1"/>
+                            <label for ="hat-option-02" class="hat-radio-option" style="background-image: url('images/stamps/hat02.png')">
+                        </div>
+                        <div>
+                            <input id="hat-option-03" type="radio" name="hat" value="2"/>
+                            <label for="hat-option-03" class="hat-radio-option" style="background-image: url('images/stamps/hat03.png')">
+                        </div>
+                        <div>
+                            <input id="hat-option-04" type="radio" name="hat" value="3"/>
+                            <label for="hat-option-04" class="hat-radio-option" style="background-image: url('images/stamps/hat04.png')">
+                        </div>
+                        <div>
+                            <input id="hat-option-05" type="radio" name="hat" value="4"/>
+                            <label for="hat-option-05" class="hat-radio-option" style="background-image: url('images/stamps/hat05.png')">
+                        </div>
+                        <div>
+                            <input id="hat-option-06" type="radio" name="hat" value="5"/>
+                            <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
+                        </div>
+                    <button id="add-hat-btn">Add Hat</button>
+                </div>
+                <div id="piji-app-container"></div>
+                <div class="btn-bar">
+                    <button id="export-btn">Save Image</button>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a href="https://shop.crytek.com/games/hunt-showdown" target="_blank">Buy Hunt Showdown</a>
+        </footer>
+    </body>
+</html>
