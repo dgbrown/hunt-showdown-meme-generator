@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const newHeight = newWidth * ratio
                 app.renderer.resize(newWidth, newHeight);
 
-                let scale = Math.max(newWidth / width, 0)
+                let scale = Math.min(newWidth / width, 1)
                 app.stage.scale.set(scale)
                 const handleScale = 1/scale
                 handles.forEach((handle) => handle.scale.set(handleScale))
