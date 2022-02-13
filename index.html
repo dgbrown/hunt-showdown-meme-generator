@@ -48,18 +48,16 @@
             .appname .subtitle {
                 margin-right: 10px;
             }
-            .file-upload-btn, button {
+            .btn {
                 display: inline-block;
-                color: black;
                 padding: 8px 16px;
-                background-color: rgb(255, 248, 248);
                 font-size: 1.5rem;
-                border: 2px solid black;
+                border: 2px solid #272732;
+                background-color: #212128;
+                color: rgb(255, 248, 248);
             }
-            .file-upload-btn:hover {
-                background-color: white;
-                color: rgb(27, 27, 31);
-                border-color: rgb(27, 27, 31);
+            .btn:hover {
+                background-color: #272732;
             }
             #pixi-app-container {
                 margin-top: 20px;
@@ -111,7 +109,7 @@
             <div id="start-layout">
                 <h2>Pick a meme and lets add some cowboy hats</h2>
                 <div class="btn-bar">
-                    <label class="file-upload-btn">
+                    <label class="file-upload-btn btn">
                         Upload Image
                         <input style="display:none;" id="upload-btn" type="file"/>
                     </label>
@@ -144,11 +142,11 @@
                         <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
                     </div>
                 </div>
-                <button id="add-hat-btn">Add Hat</button>
+                <button id="add-hat-btn" class="btn">Add Hat</button>
             </div>
             <div id="pixi-app-container" style="display: none"></div>
             <div id="bottom-btn-bar" class="btn-bar" style="display:none">
-                <button id="export-btn">Save Image</button>
+                <button id="export-btn" class="btn">Save Image</button>
             </div>
             <div style="flex-grow: 1"></div>
             <footer id="footer">
