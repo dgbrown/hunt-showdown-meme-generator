@@ -59,7 +59,7 @@ export class SpriteWithHandles extends PIXI.Graphics {
     isFocused = false;
     #onFocus;
     #debugGraphics;
-    constructor(texture, onFocus, debugGraphics){
+    constructor(texture, handleScale = 1, onFocus, debugGraphics){
         super()
         if(debugGraphics){
             this.#debugGraphics = debugGraphics
@@ -71,7 +71,6 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.#sprite.interactive = true;
         this.#sprite.buttonMode = true;
         this.#sprite.anchor.set(0.5);
-        //this.#sprite.scale.set(0.5);
         this.#sprite.on('pointerdown', (event) => {
             this.focus()
             this.#isBeingDragged = true;
@@ -97,7 +96,6 @@ export class SpriteWithHandles extends PIXI.Graphics {
             handle.on('pointerdown', (event) => this.onRotationHandleDragStart(handle, event.data))
             handle.on('pointerup', (event) => this.onRotationHandleDragStop(handle))
             handle.on('pointerupoutside', (event) => this.onRotationHandleDragStop(handle))
-            this.addChild(handle);
         })
 
         this.#topScaleHandle = new ScaleHandle();
@@ -109,6 +107,10 @@ export class SpriteWithHandles extends PIXI.Graphics {
             handle.on('pointerdown', (event) => this.onScaleHandleDragStart(handle, event.data))
             handle.on('pointerup', (event) => this.onScaleHandleDragStop(handle))
             handle.on('pointerupoutside', (event) => this.onScaleHandleDragStop(handle))
+        })
+
+        this.#handles.forEach((handle) => {
+            handle.scale.set(handleScale)
             this.addChild(handle);
         })
 

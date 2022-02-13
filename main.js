@@ -1,7 +1,6 @@
-import Hat from "./modules/hat.js";
 import SwappableSprite from "./modules/swappableSprite.js";
 import TrackedKeyboardKey from "./modules/trackedKeyboardKey.js";
-import { handles } from './modules/spriteWithHandles.js'
+import SpriteWithHandles, { handles } from './modules/spriteWithHandles.js'
 
 const CANVAS_WIDTH = 128
 const CANVAS_HEIGHT = 128
@@ -107,8 +106,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
         let hatTextureIndex = parseInt(selectedHatElem.value)
         let hatTexture = hatTextures[hatTextureIndex]
-        let hat = new Hat(hatTexture, onHatFocused, debugGraphics)
         let inverseStageScale = 1/app.stage.scale.x
+        let hat = new SpriteWithHandles(hatTexture, inverseStageScale, onHatFocused, debugGraphics)
         hat.x = app.renderer.width * 0.5 * inverseStageScale
         hat.y = app.renderer.height * 0.5 * inverseStageScale
         hats.push(hat)

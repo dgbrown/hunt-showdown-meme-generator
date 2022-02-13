@@ -1,5 +1,4 @@
 # TODO
-- bug: app adjusted scale isn't set on new handles
 - scale to flip
 - handles get bigger hit areas
 - handles get special cursors
@@ -15,6 +14,7 @@
 - post to imgur?
 
 # DONE
+- bug: app adjusted scale isn't set on new handles
 - handle arbitary image size (second pass)
     - scale a container so that hat positions remain consistent
 - handle arbitrary image size (first pass)
