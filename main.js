@@ -16,8 +16,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         PIXI.Texture.from('images/stamps/hat06.png')
     ]
     
-    let app = new PIXI.Application({ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, backgroundColor: CANVAS_BACKGROUND_COLOR, preserveDrawingBuffer: true });
-    document.getElementById('piji-app-container').appendChild(app.view);
+    let app = new PIXI.Application({ 
+        width: CANVAS_WIDTH, 
+        height: CANVAS_HEIGHT, 
+        backgroundColor: CANVAS_BACKGROUND_COLOR, 
+        preserveDrawingBuffer: true // so we can extract the buffer for download
+    });
+    document.getElementById('pixi-app-container').appendChild(app.view);
 
     let uploadedImageSprite = new SwappableSprite()
     uploadedImageSprite.interactive = true
@@ -47,7 +52,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         reader.readAsDataURL(file)
 
         document.getElementById('start-layout').style.display = 'none';
-        document.getElementById('full-layout').style.display = 'initial';
+        document.getElementById('hat-bar').style.display = null;
+        document.getElementById('pixi-app-container').style.display = null;
+        document.getElementById('bottom-btn-bar').style.display = null;
     });
 
     // add new hat

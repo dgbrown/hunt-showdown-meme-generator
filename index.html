@@ -7,29 +7,6 @@
             * {
                 font-family: 'Oswald', sans-serif;
             }
-            body {
-                margin: 0;
-                background-color: rgb(20, 20, 24);
-                color: rgb(255, 248, 248);
-            }
-            .topbar {
-                padding: 20px;
-                background-color: rgb(27, 27, 31);
-            }
-            footer {
-                text-align: center;
-                padding: 20px;
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: 0;
-            }
-            .appname h1{
-                margin: 0
-            }
-            .appname .subtitle {
-                margin-right: 10px;
-            }
             a {
                 color: grey;
                 text-decoration: none;
@@ -37,9 +14,39 @@
             a:hover {
                 color: rgb(165, 165, 165);
             }
+            body {
+                margin: 0;
+                background-color: rgb(20, 20, 24);
+                color: rgb(255, 248, 248);
+                text-align: center;
+            }
+            .container {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            #header {
+                text-align: left;
+                padding: 20px;
+                background-color: rgb(27, 27, 31);
+            }
             .content {
+                flex-grow: 1;
                 padding: 20px;
                 text-align: center;
+            }
+            footer {
+                text-align: center;
+                padding: 20px;
+            }
+            #start-layout {
+                flex-grow: 1;
+            }
+            .appname h1{
+                margin: 0
+            }
+            .appname .subtitle {
+                margin-right: 10px;
             }
             .file-upload-btn, button {
                 display: inline-block;
@@ -54,8 +61,9 @@
                 color: rgb(27, 27, 31);
                 border-color: rgb(27, 27, 31);
             }
-            #piji-app-container {
+            #pixi-app-container {
                 margin-top: 40px;
+                flex-grow: 1;
             }
             .btn-bar {
                 margin: 40px 0;
@@ -63,19 +71,19 @@
                 column-gap: 20px;
                 justify-content: center;
             }
-            .hat-bar {
-                margin: 0px 0;
+            #hat-bar {
+                margin-top: 20px;
                 display: flex;
                 justify-content: center;
                 column-gap: 30px;
             }
-            .hat-bar input {
+            #hat-bar input {
                 display: none;
             }
-            .hat-bar input:checked+label {
+            #hat-bar input:checked+label {
                 border: 1px solid white;
             }
-            .hat-bar label {
+            #hat-bar label {
                 display: inline-block;
                 background-position: center;
                 background-size: cover;
@@ -86,13 +94,13 @@
         <script src="main.js" type="module"></script>
     </head>
     <body>
-        <header class="topbar">
-            <div class="appname">
-                <h1>Hunt: Showdown Meme Machine</h1>
-                <span class="subtitle">Throw a hat on, cowboy ;)</span><a href="https://www.reddit.com/r/huntshowdown" target="_blank">/r/huntshowdown</a>
-            </div>
-        </header>
-        <div class="content">
+        <div class="container">
+            <header id="header">
+                <div class="appname">
+                    <h1>Hunt: Showdown Meme Machine</h1>
+                    <span class="subtitle">Throw a hat on, cowboy ;)</span><a href="https://www.reddit.com/r/huntshowdown" target="_blank">/r/huntshowdown</a>
+                </div>
+            </header>
             <div id="start-layout">
                 <h2>Pick a meme and lets add some cowboy hats</h2>
                 <div class="btn-bar">
@@ -102,42 +110,40 @@
                     </label>
                 </div>
             </div>
-            <div id="full-layout" style="display:none">
-                <div class="hat-bar">
-                        <div>
-                            <input id="hat-option-01" type="radio" name="hat" value="0" checked/>
-                            <label for="hat-option-01" class="hat-radio-option" style="background-image: url('images/stamps/hat01.png')">
-                        </div>
-                        <div>
-                            <input id="hat-option-02" type="radio" name="hat" value="1"/>
-                            <label for ="hat-option-02" class="hat-radio-option" style="background-image: url('images/stamps/hat02.png')">
-                        </div>
-                        <div>
-                            <input id="hat-option-03" type="radio" name="hat" value="2"/>
-                            <label for="hat-option-03" class="hat-radio-option" style="background-image: url('images/stamps/hat03.png')">
-                        </div>
-                        <div>
-                            <input id="hat-option-04" type="radio" name="hat" value="3"/>
-                            <label for="hat-option-04" class="hat-radio-option" style="background-image: url('images/stamps/hat04.png')">
-                        </div>
-                        <div>
-                            <input id="hat-option-05" type="radio" name="hat" value="4"/>
-                            <label for="hat-option-05" class="hat-radio-option" style="background-image: url('images/stamps/hat05.png')">
-                        </div>
-                        <div>
-                            <input id="hat-option-06" type="radio" name="hat" value="5"/>
-                            <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
-                        </div>
-                    <button id="add-hat-btn">Add Hat</button>
-                </div>
-                <div id="piji-app-container"></div>
-                <div class="btn-bar">
-                    <button id="export-btn">Save Image</button>
-                </div>
+            <div id="hat-bar" style="display: none">
+                    <div>
+                        <input id="hat-option-01" type="radio" name="hat" value="0" checked/>
+                        <label for="hat-option-01" class="hat-radio-option" style="background-image: url('images/stamps/hat01.png')">
+                    </div>
+                    <div>
+                        <input id="hat-option-02" type="radio" name="hat" value="1"/>
+                        <label for ="hat-option-02" class="hat-radio-option" style="background-image: url('images/stamps/hat02.png')">
+                    </div>
+                    <div>
+                        <input id="hat-option-03" type="radio" name="hat" value="2"/>
+                        <label for="hat-option-03" class="hat-radio-option" style="background-image: url('images/stamps/hat03.png')">
+                    </div>
+                    <div>
+                        <input id="hat-option-04" type="radio" name="hat" value="3"/>
+                        <label for="hat-option-04" class="hat-radio-option" style="background-image: url('images/stamps/hat04.png')">
+                    </div>
+                    <div>
+                        <input id="hat-option-05" type="radio" name="hat" value="4"/>
+                        <label for="hat-option-05" class="hat-radio-option" style="background-image: url('images/stamps/hat05.png')">
+                    </div>
+                    <div>
+                        <input id="hat-option-06" type="radio" name="hat" value="5"/>
+                        <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
+                    </div>
+                <button id="add-hat-btn">Add Hat</button>
             </div>
+            <div id="pixi-app-container" style="display: none"></div>
+            <div id="bottom-btn-bar" class="btn-bar" style="display:none">
+                <button id="export-btn">Save Image</button>
+            </div>
+            <footer id="footer">
+                <a href="https://github.com/dgbrown/hat-app" target="_blank">sourcecode</a>
+            </footer>
         </div>
-        <footer>
-            <a href="https://github.com/dgbrown/hat-app" target="_blank">sourcecode</a>
-        </footer>
     </body>
 </html>
