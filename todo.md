@@ -7,13 +7,13 @@
 - duplicate hotkey (d)
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
-- unfocus hotkey (escape)
 - release to reddit
 - clipboard
 - post to reddit
 - post to imgur?
 
 # DONE
+- unfocus hotkey (escape)
 - bug: app adjusted scale isn't set on new handles
 - handle arbitary image size (second pass)
     - scale a container so that hat positions remain consistent

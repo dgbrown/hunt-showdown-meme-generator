@@ -134,8 +134,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
 
     // delete focused hat
-    const deleteKey = new TrackedKeyboardKey('Delete')
-    deleteKey.onPress = () => {
+    const deleteHatKey = new TrackedKeyboardKey('Delete')
+    deleteHatKey.onPress = () => {
         let hatIndex = hats.findIndex((x) => x.isFocused)
         if(hatIndex >= 0){
             let hat = hats[hatIndex]
@@ -147,8 +147,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     // reset focused hat
-    const rKey = new TrackedKeyboardKey('r')
-    rKey.onPress = () => {
+    const resetHatKey = new TrackedKeyboardKey('r')
+    resetHatKey.onPress = () => {
         let hat = hats.find((x) => x.isFocused)
         if(hat){
             hat.scale.x = hat.scale.y = 1
@@ -156,6 +156,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
+    // unfocus all
+    const unfocusKey = new TrackedKeyboardKey('Escape');
+    unfocusKey.onPress = () => hats.forEach((x) => x.unfocus())
+
+    // pixi update
     let elapsedTime = 0
     app.ticker.add((deltaTime) => {
         elapsedTime += deltaTime
