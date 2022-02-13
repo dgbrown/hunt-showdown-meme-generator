@@ -1,13 +1,18 @@
 # TODO
-- handle arbitrary image size
+- handle arbitary image size (second pass)
+    - scale a container so that hat positions remain consistent
 - handles get special cursors
 - publish on github sites
 - test with friends
 - duplicate hotkey (d)
 - unfocus hotkey (escape)
 - release to reddit
+- clipboard
+- post to reddit
+- post to imgur?
 
 # DONE
+- handle arbitrary image size (first pass)
 - make look okay
 - list of hat buttons
 - prepare 6 alpha masked cowboy hats

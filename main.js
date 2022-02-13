@@ -42,19 +42,48 @@ document.addEventListener("DOMContentLoaded", (event) => {
         hats.forEach((x) => x === hat || x.unfocus())
     }
 
+    let handleResizeTimeoutHandle;
+    const handleResize = () => {
+        if(handleResizeTimeoutHandle){
+            clearTimeout(handleResizeTimeoutHandle)
+        }
+        handleResizeTimeoutHandle = setTimeout(() => {
+            const width = uploadedImageSprite?.originalWidth
+            const height = uploadedImageSprite?.originalHeight
+            if(width + height > 0){
+                let ratio = height / width;
+                const newWidth = Math.min(width, window.innerWidth)
+                uploadedImageSprite.width = newWidth
+                const newHeight = newWidth * ratio
+                uploadedImageSprite.height = newHeight
+                app.renderer.resize(newWidth, newHeight);
+            }
+        }, 200)
+    }
+
+    // on meme chosen
     document.getElementById('upload-btn').addEventListener('change', (event) => {
         const file = event.target.files[0];
         const reader = new FileReader();
         reader.onload = (event) => {
             const fileDataURL = event.target.result;
-            uploadedImageSprite.setSprite(PIXI.Sprite.from(fileDataURL))
+            const loader = PIXI.Loader.shared;
+            loader.add('upload', fileDataURL)
+            loader.load((loader, resources) => {
+                uploadedImageSprite.setSprite(PIXI.Sprite.from(fileDataURL))
+                handleResize()
+
+                document.getElementById('start-layout').style.display = 'none';
+                document.getElementById('hat-bar').style.display = null;
+                document.getElementById('pixi-app-container').style.display = null;
+                document.getElementById('bottom-btn-bar').style.display = null;
+            })
         }
         reader.readAsDataURL(file)
+    });
 
-        document.getElementById('start-layout').style.display = 'none';
-        document.getElementById('hat-bar').style.display = null;
-        document.getElementById('pixi-app-container').style.display = null;
-        document.getElementById('bottom-btn-bar').style.display = null;
+    window.addEventListener('resize', () => {
+        handleResize()
     });
 
     // add new hat
