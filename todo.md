@@ -1,4 +1,5 @@
 # TODO
+- bug: app adjusted scale isn't set on new handles
 - handles get special cursors
 - publish on github sites
 - test with friends

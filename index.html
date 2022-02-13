@@ -40,7 +40,7 @@
                 padding: 20px;
             }
             #start-layout {
-                flex-grow: 1;
+                margin-top: 30vh;
             }
             .appname h1{
                 margin: 0
@@ -62,8 +62,7 @@
                 border-color: rgb(27, 27, 31);
             }
             #pixi-app-container {
-                margin-top: 40px;
-                flex-grow: 1;
+                margin-top: 20px;
             }
             .btn-bar {
                 margin: 40px 0;
@@ -75,7 +74,8 @@
                 margin-top: 20px;
                 display: flex;
                 justify-content: center;
-                column-gap: 30px;
+                column-gap: 20px;
+                padding: 0 20px;
             }
             #hat-bar input {
                 display: none;
@@ -89,6 +89,13 @@
                 background-size: cover;
                 padding: 60px;
                 border: 1px solid transparent;
+            }
+            #hat-scroller {
+                display: flex;
+                overflow-x: auto;
+            }
+            #add-hat-btn {
+                white-space: nowrap;
             }
         </style>
         <script src="main.js" type="module"></script>
@@ -111,6 +118,7 @@
                 </div>
             </div>
             <div id="hat-bar" style="display: none">
+                <div id="hat-scroller">
                     <div>
                         <input id="hat-option-01" type="radio" name="hat" value="0" checked/>
                         <label for="hat-option-01" class="hat-radio-option" style="background-image: url('images/stamps/hat01.png')">
@@ -135,12 +143,14 @@
                         <input id="hat-option-06" type="radio" name="hat" value="5"/>
                         <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
                     </div>
+                </div>
                 <button id="add-hat-btn">Add Hat</button>
             </div>
             <div id="pixi-app-container" style="display: none"></div>
             <div id="bottom-btn-bar" class="btn-bar" style="display:none">
                 <button id="export-btn">Save Image</button>
             </div>
+            <div style="flex-grow: 1"></div>
             <footer id="footer">
                 <a href="https://github.com/dgbrown/hat-app" target="_blank">sourcecode</a>
             </footer>
