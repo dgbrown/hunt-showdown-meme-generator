@@ -1,9 +1,13 @@
 # TODO
 - bug: app adjusted scale isn't set on new handles
+- scale to flip
+- handles get bigger hit areas
 - handles get special cursors
 - publish on github sites
 - test with friends
 - duplicate hotkey (d)
+- layer down hotkey (pagedn)
+- layer up hotkey (pageup)
 - unfocus hotkey (escape)
 - release to reddit
 - clipboard
