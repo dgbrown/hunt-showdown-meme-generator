@@ -1,6 +1,4 @@
 # TODO
-- handle arbitary image size (second pass)
-    - scale a container so that hat positions remain consistent
 - handles get special cursors
 - publish on github sites
 - test with friends
@@ -12,6 +10,8 @@
 - post to imgur?
 
 # DONE
+- handle arbitary image size (second pass)
+    - scale a container so that hat positions remain consistent
 - handle arbitrary image size (first pass)
 - make look okay
 - list of hat buttons

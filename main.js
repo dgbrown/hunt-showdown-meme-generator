@@ -1,9 +1,10 @@
 import Hat from "./modules/hat.js";
 import SwappableSprite from "./modules/swappableSprite.js";
 import TrackedKeyboardKey from "./modules/trackedKeyboardKey.js";
+import { handles } from './modules/spriteWithHandles.js'
 
-const CANVAS_WIDTH = 1000
-const CANVAS_HEIGHT = 600
+const CANVAS_WIDTH = 128
+const CANVAS_HEIGHT = 128
 const CANVAS_BACKGROUND_COLOR = 0x222222
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -38,28 +39,38 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let hats = []
 
-    const onHatFocused = (hat) => {
-        hats.forEach((x) => x === hat || x.unfocus())
-    }
-
-    let handleResizeTimeoutHandle;
-    const handleResize = () => {
-        if(handleResizeTimeoutHandle){
-            clearTimeout(handleResizeTimeoutHandle)
-        }
-        handleResizeTimeoutHandle = setTimeout(() => {
+    const resizeApp = (() => {
+        let handleResizeTimeoutHandle;
+        const _resizeApp = () => {
             const width = uploadedImageSprite?.originalWidth
             const height = uploadedImageSprite?.originalHeight
             if(width + height > 0){
                 let ratio = height / width;
                 const newWidth = Math.min(width, window.innerWidth)
-                uploadedImageSprite.width = newWidth
                 const newHeight = newWidth * ratio
-                uploadedImageSprite.height = newHeight
                 app.renderer.resize(newWidth, newHeight);
+
+                let scale = Math.max(newWidth / width, 0)
+                app.stage.scale.set(scale)
+                const handleScale = 1/scale
+                handles.forEach((handle) => handle.scale.set(handleScale))
             }
-        }, 200)
-    }
+        }
+        return (debounceMs = 100) => {
+            if(handleResizeTimeoutHandle){
+                clearTimeout(handleResizeTimeoutHandle)
+            }
+            if(debounceMs){
+                handleResizeTimeoutHandle = setTimeout(_resizeApp, debounceMs)
+            }else{
+                _resizeApp()
+            }
+        }
+    })()
+
+    window.addEventListener('resize', () => {
+        resizeApp()
+    });
 
     // on meme chosen
     document.getElementById('upload-btn').addEventListener('change', (event) => {
@@ -71,7 +82,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             loader.add('upload', fileDataURL)
             loader.load((loader, resources) => {
                 uploadedImageSprite.setSprite(PIXI.Sprite.from(fileDataURL))
-                handleResize()
+                resizeApp(0)
 
                 document.getElementById('start-layout').style.display = 'none';
                 document.getElementById('hat-bar').style.display = null;
@@ -82,9 +93,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         reader.readAsDataURL(file)
     });
 
-    window.addEventListener('resize', () => {
-        handleResize()
-    });
+    // only one hat focused at a time
+    const onHatFocused = (hat) => {
+        hats.forEach((x) => x === hat || x.unfocus())
+    }
 
     // add new hat
     document.getElementById('add-hat-btn').addEventListener('click', (event) => {
@@ -96,8 +108,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let hatTextureIndex = parseInt(selectedHatElem.value)
         let hatTexture = hatTextures[hatTextureIndex]
         let hat = new Hat(hatTexture, onHatFocused, debugGraphics)
-        hat.x = CANVAS_WIDTH * 0.5
-        hat.y = CANVAS_HEIGHT * 0.5
+        let inverseStageScale = 1/app.stage.scale.x
+        hat.x = app.renderer.width * 0.5 * inverseStageScale
+        hat.y = app.renderer.height * 0.5 * inverseStageScale
         hats.push(hat)
         app.stage.addChild(hat)
         hat.focus()
