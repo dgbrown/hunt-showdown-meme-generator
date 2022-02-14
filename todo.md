@@ -1,18 +1,18 @@
 # TODO
-- scale to flip
 - handles get bigger hit areas
 - handles get special cursors
 - publish on github sites
 - test with friends
+- release to reddit
+- copy to clipboard
+- post to reddit
+- post to imgur?
 - duplicate hotkey (d)
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
-- release to reddit
-- clipboard
-- post to reddit
-- post to imgur?
 
 # DONE
+- scale to flip
 - unfocus hotkey (escape)
 - bug: app adjusted scale isn't set on new handles
 - handle arbitary image size (second pass)

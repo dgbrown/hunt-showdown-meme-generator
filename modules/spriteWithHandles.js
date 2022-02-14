@@ -55,6 +55,9 @@ export class SpriteWithHandles extends PIXI.Graphics {
     #rightScaleHandle;
     #bottomScaleHandle;
     #leftScaleHandle;
+    #scaleDragStartRelativeSign
+    #scaleDragStartFlip
+    #scaleDragIsHorizontal
 
     isFocused = false;
     #onFocus;
@@ -147,28 +150,27 @@ export class SpriteWithHandles extends PIXI.Graphics {
             let relativePosition = this.#scaleHandleDragEventData.getLocalPosition(this)
 
             const maintainAspectRatio = true;
-            const isHorizontal = this.#draggedScaleHandle === this.#leftScaleHandle || this.#draggedScaleHandle === this.#rightScaleHandle
-            if(isHorizontal){
-                let newWidth = Math.abs(relativePosition.x * 2)
-                if(maintainAspectRatio){
-                    let ratio = this.#sprite.width / this.#sprite.height
-                    this.#sprite.height = Math.abs(newWidth) * ratio
-                }
-                this.#sprite.width = newWidth
-            }else{
-                let newHeight = Math.abs(relativePosition.y * 2)
-                if(maintainAspectRatio){
-                    let ratio = this.#sprite.height / this.#sprite.width
-                    this.#sprite.width = Math.abs(newHeight) * ratio
-                }
-                this.#sprite.height = newHeight
+
+            let propNames = this.#scaleDragIsHorizontal ? {
+                axis: 'x',
+                primaryDim: 'width',
+                secondaryDim: 'height',
+            } : {
+                axis: 'y',
+                primaryDim: 'height',
+                secondaryDim: 'width',
             }
 
-            if(this.#sprite.scale.x < 0.1){
-                this.#sprite.scale.x = 0.1
+            const flip = this.#scaleDragStartFlip * (this.#scaleDragStartRelativeSign !== Math.sign(relativePosition[propNames.axis]) ? -1 : 1)
+            let newSize = Math.max(20, Math.abs(relativePosition[propNames.axis] * 2))
+            if(maintainAspectRatio){
+                let ratio = this.#sprite[propNames.primaryDim] / this.#sprite[propNames.secondaryDim]
+                this.#sprite[propNames.secondaryDim] = Math.abs(newSize) * ratio
             }
-            if(this.#sprite.scale.y < 0.1){
-                this.#sprite.scale.y = 0.1
+            this.#sprite[propNames.primaryDim] = newSize
+            
+            if(Math.sign(this.#sprite.scale[propNames.axis]) !== flip){
+                this.#sprite.scale[propNames.axis] *= -1
             }
         }
     }
@@ -189,6 +191,9 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.#isScaleHandleBeingDragged = true
         this.#scaleHandleDragEventData = eventData
         this.#draggedScaleHandle = handle;
+        this.#scaleDragIsHorizontal = this.#draggedScaleHandle === this.#leftScaleHandle || this.#draggedScaleHandle === this.#rightScaleHandle
+        this.#scaleDragStartFlip = Math.sign(this.#scaleDragIsHorizontal ? this.#sprite.scale.x : this.#sprite.scale.y)
+        this.#scaleDragStartRelativeSign = Math.sign(this.#scaleHandleDragEventData.getLocalPosition(this)[this.#scaleDragIsHorizontal ? 'x' : 'y'])
     }
     onScaleHandleDragStop(handle){
         this.#isScaleHandleBeingDragged = false
