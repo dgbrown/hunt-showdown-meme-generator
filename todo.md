@@ -5,6 +5,7 @@
 - release to reddit
 - copy to clipboard
 - post to reddit
+    - google analytics first
 - post to imgur?
 - duplicate hotkey (d)
 - layer down hotkey (pagedn)
