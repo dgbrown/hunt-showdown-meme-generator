@@ -107,7 +107,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let hatTextureIndex = parseInt(selectedHatElem.value)
         let hatTexture = hatTextures[hatTextureIndex]
         let inverseStageScale = 1/app.stage.scale.x
-        let hat = new SpriteWithHandles(hatTexture, inverseStageScale, onHatFocused, debugGraphics)
+        let hat = new SpriteWithHandles(hatTexture, inverseStageScale, debugGraphics)
+        hat.onFocus = onHatFocused
         hat.x = app.renderer.width * 0.5 * inverseStageScale
         hat.y = app.renderer.height * 0.5 * inverseStageScale
         hats.push(hat)
@@ -161,6 +162,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let hat = hats.find((x) => x.isFocused)
         if(hat){
             hat.flipHorizontal()
+        }
+    }
+
+    // maintain scaling aspect radio modifier
+    const scaleMaintainAspectRatioModifierKey = new TrackedKeyboardKey('Shift')
+    scaleMaintainAspectRatioModifierKey.onPress = () => {
+        hats.forEach((x) => x.maintainAspectRatio = true)
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            hat.maintainAspectRatio = false;
+        }
+    }
+    scaleMaintainAspectRatioModifierKey.onRelease = () => {
+        hats.forEach((x) => x.maintainAspectRatio = false)
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            hat.maintainAspectRatio = true;
         }
     }
 
