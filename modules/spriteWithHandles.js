@@ -8,6 +8,8 @@ class RotationHandle extends PIXI.Graphics {
         this.beginFill(0xFFFFFF);
         this.drawCircle(0, 0, diameter * 0.5);
         this.endFill();
+        const hitSize = diameter * 1.5;
+        this.hitArea = new PIXI.Rectangle(hitSize * -0.5, hitSize * -0.5, hitSize, hitSize)
         handles.push(this);
     }
 }
@@ -20,6 +22,8 @@ class ScaleHandle extends PIXI.Graphics {
         this.beginFill(0xFFFFFF);
         this.drawRect(size * -0.5, size * -0.5, size, size);
         this.endFill();
+        const hitSize = size * 1.5;
+        this.hitArea = new PIXI.Rectangle(hitSize * -0.5, hitSize * -0.5, hitSize, hitSize)
         handles.push(this);
     }
 }

@@ -1,5 +1,4 @@
 # TODO
-- handles get bigger hit areas
 - publish on github sites
 - test with friends
 - release to reddit
@@ -12,6 +11,7 @@
 - layer up hotkey (pageup)
 
 # DONE
+- handles get bigger hit areas
 - handles get special cursors
 - scale to flip
 - unfocus hotkey (escape)
