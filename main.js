@@ -155,6 +155,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     }
 
+    // flip focused hat (horizontally)
+    const flipHatHorizontalKey = new TrackedKeyboardKey('f')
+    flipHatHorizontalKey.onPress = () => {
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            hat.flipHorizontal()
+        }
+    }
+
     // unfocus all
     const unfocusKey = new TrackedKeyboardKey('Escape');
     unfocusKey.onPress = () => hats.forEach((x) => x.unfocus())
