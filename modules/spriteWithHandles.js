@@ -4,7 +4,6 @@ class RotationHandle extends PIXI.Graphics {
     constructor(diameter = 10){
         super();
         this.interactive = true;
-        this.buttonMode = true;
         this.lineStyle(1, 0x000000);
         this.beginFill(0xFFFFFF);
         this.drawCircle(0, 0, diameter * 0.5);
@@ -17,7 +16,6 @@ class ScaleHandle extends PIXI.Graphics {
     constructor(size = 10){
         super();
         this.interactive = true;
-        this.buttonMode = true;
         this.lineStyle(1, 0x000000);
         this.beginFill(0xFFFFFF);
         this.drawRect(size * -0.5, size * -0.5, size, size);
@@ -73,7 +71,8 @@ export class SpriteWithHandles extends PIXI.Graphics {
 
         this.#sprite = new PIXI.Sprite(texture)
         this.#sprite.interactive = true;
-        this.#sprite.buttonMode = true;
+        //this.#sprite.buttonMode = true;
+        this.#sprite.cursor = 'move'
         this.#sprite.anchor.set(0.5);
         this.#sprite.on('pointerdown', (event) => {
             this.focus()
@@ -92,9 +91,13 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.addChild(this.#sprite);
 
         this.#topLeftRotationHandle = new RotationHandle();
+        this.#topLeftRotationHandle.buttonMode = true;
         this.#topRightRotationHandle = new RotationHandle();
+        this.#topRightRotationHandle.buttonMode = true;
         this.#bottomRightRotationHandle = new RotationHandle();
+        this.#bottomRightRotationHandle.buttonMode = true;
         this.#bottomLeftRotationHandle = new RotationHandle();
+        this.#bottomLeftRotationHandle.buttonMode = true;
         [this.#topLeftRotationHandle, this.#topRightRotationHandle, this.#bottomRightRotationHandle, this.#bottomLeftRotationHandle].forEach((handle) => {
             this.#handles.push(handle)
             handle.on('pointerdown', (event) => this.onRotationHandleDragStart(handle, event.data))
@@ -103,9 +106,13 @@ export class SpriteWithHandles extends PIXI.Graphics {
         })
 
         this.#topScaleHandle = new ScaleHandle();
+        this.#topScaleHandle.cursor = 'ns-resize';
         this.#rightScaleHandle = new ScaleHandle();
+        this.#rightScaleHandle.cursor = 'ew-resize';
         this.#bottomScaleHandle = new ScaleHandle();
+        this.#bottomScaleHandle.cursor = 'ns-resize';
         this.#leftScaleHandle = new ScaleHandle();
+        this.#leftScaleHandle.cursor = 'ew-resize';
         [this.#topScaleHandle, this.#rightScaleHandle, this.#bottomScaleHandle, this.#leftScaleHandle].forEach((handle) => {
             this.#handles.push(handle)
             handle.on('pointerdown', (event) => this.onScaleHandleDragStart(handle, event.data))

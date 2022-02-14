@@ -1,6 +1,5 @@
 # TODO
 - handles get bigger hit areas
-- handles get special cursors
 - publish on github sites
 - test with friends
 - release to reddit
@@ -12,6 +11,7 @@
 - layer up hotkey (pageup)
 
 # DONE
+- handles get special cursors
 - scale to flip
 - unfocus hotkey (escape)
 - bug: app adjusted scale isn't set on new handles
