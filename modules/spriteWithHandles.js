@@ -168,7 +168,7 @@ export class SpriteWithHandles extends PIXI.Graphics {
                 this.#sprite[propNames.secondaryDim] = Math.abs(newSize) * ratio
             }
             this.#sprite[propNames.primaryDim] = newSize
-            
+
             if(Math.sign(this.#sprite.scale[propNames.axis]) !== flip){
                 this.#sprite.scale[propNames.axis] *= -1
             }
@@ -216,6 +216,10 @@ export class SpriteWithHandles extends PIXI.Graphics {
             this.#onFocus(this)
         }
         this.isFocused = true;
+    }
+    resetAdjustments() {
+        this.#sprite.scale.set(1)
+        this.rotation = 0
     }
 }
 

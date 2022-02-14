@@ -151,8 +151,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     resetHatKey.onPress = () => {
         let hat = hats.find((x) => x.isFocused)
         if(hat){
-            hat.scale.x = hat.scale.y = 1
-            hat.rotation = 0
+            hat.resetAdjustments()
         }
     }
 
