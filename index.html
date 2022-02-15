@@ -95,6 +95,33 @@
                 display: flex;
                 overflow-x: auto;
             }
+            /* ::-webkit-scrollbar-track */
+            /* ::-webkit-scrollbar-thumb */
+            /* ::-webkit-scrollbar-thumb:hover */
+            ::-webkit-scrollbar {
+                width: 15px;
+                height: 15px;
+            }
+            ::-webkit-scrollbar-track, ::-webkit-scrollbar-corner{
+                background-color: #212128;
+                box-shadow: inset 0 0 5px rgb(20, 20, 20);
+            }
+            ::-webkit-scrollbar-thumb {
+                background-color: #272732;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #2d2d3a;   
+            }
+            /* ::-webkit-scrollbar-track {
+                background: #1b1b20;
+                box-shadow: inset 0 0 5px black;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #212128;   
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #272732;   
+            } */
             #add-hat-btn {
                 white-space: nowrap;
             }
