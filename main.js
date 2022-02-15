@@ -20,13 +20,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
         'images/stamps/hat04.png'
     ]
     
+    const hatScrollerElem = document.getElementById('hat-scroller');
     hatImagePaths.forEach((hatImagePath, i) => {
         const elem = document.createElement('div')
         elem.innerHTML = `
             <input id="hat-option-${i}" type="radio" name="hat" value="${i}" ${i === 0 ? 'checked' : ''}/>
             <label for="hat-option-${i}" class="hat-radio-option" style="background-image: url('${hatImagePath}')">
-        `
-        document.getElementById('hat-scroller').append(elem)
+        `;
+        hatScrollerElem.append(elem)
+        elem.getElementsByTagName('label')[0].addEventListener('click', () => {
+            hatScrollerElem.scrollTo({
+                left: hatScrollerElem.scrollLeft + elem.getBoundingClientRect().left - hatScrollerElem.getBoundingClientRect().left, 
+                behavior: 'smooth'
+            })
+        })
     })
     
     let app = new PIXI.Application({ 
