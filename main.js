@@ -7,14 +7,27 @@ const CANVAS_HEIGHT = 128
 const CANVAS_BACKGROUND_COLOR = 0x222222
 
 document.addEventListener("DOMContentLoaded", (event) => {
-    let hatTextures = [
-        PIXI.Texture.from('images/stamps/hat01.png'),
-        PIXI.Texture.from('images/stamps/hat02.png'),
-        PIXI.Texture.from('images/stamps/hat03.png'),
-        PIXI.Texture.from('images/stamps/hat04.png'),
-        PIXI.Texture.from('images/stamps/hat05.png'),
-        PIXI.Texture.from('images/stamps/hat06.png')
+    let hatImagePaths = [
+        'images/stamps/hat01.png',
+        'images/stamps/hat02.png',
+        'images/stamps/hat09.png',
+        'images/stamps/hat08.png',
+        'images/stamps/hat10.png',
+        'images/stamps/hat06.png',
+        'images/stamps/hat07.png',
+        'images/stamps/hat05.png',
+        'images/stamps/hat03.png',
+        'images/stamps/hat04.png'
     ]
+    
+    hatImagePaths.forEach((hatImagePath, i) => {
+        const elem = document.createElement('div')
+        elem.innerHTML = `
+            <input id="hat-option-${i}" type="radio" name="hat" value="${i}" ${i === 0 ? 'checked' : ''}/>
+            <label for="hat-option-${i}" class="hat-radio-option" style="background-image: url('${hatImagePath}')">
+        `
+        document.getElementById('hat-scroller').append(elem)
+    })
     
     let app = new PIXI.Application({ 
         width: CANVAS_WIDTH, 
@@ -23,6 +36,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         preserveDrawingBuffer: true // so we can extract the buffer for download
     });
     document.getElementById('pixi-app-container').appendChild(app.view);
+
+    let hatTextures = hatImagePaths.map((hatImagePath) => PIXI.Texture.from(hatImagePath))
 
     let uploadedImageSprite = new SwappableSprite()
     uploadedImageSprite.interactive = true

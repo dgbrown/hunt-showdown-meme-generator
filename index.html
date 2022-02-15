@@ -86,7 +86,8 @@
             #hat-bar label {
                 display: inline-block;
                 background-position: center;
-                background-size: cover;
+                background-repeat: no-repeat;
+                background-size: contain;
                 padding: 60px;
                 border: 1px solid transparent;
             }
@@ -119,30 +120,7 @@
             </div>
             <div id="hat-bar" style="display: none">
                 <div id="hat-scroller">
-                    <div>
-                        <input id="hat-option-01" type="radio" name="hat" value="0" checked/>
-                        <label for="hat-option-01" class="hat-radio-option" style="background-image: url('images/stamps/hat01.png')">
-                    </div>
-                    <div>
-                        <input id="hat-option-02" type="radio" name="hat" value="1"/>
-                        <label for ="hat-option-02" class="hat-radio-option" style="background-image: url('images/stamps/hat02.png')">
-                    </div>
-                    <div>
-                        <input id="hat-option-03" type="radio" name="hat" value="2"/>
-                        <label for="hat-option-03" class="hat-radio-option" style="background-image: url('images/stamps/hat03.png')">
-                    </div>
-                    <div>
-                        <input id="hat-option-04" type="radio" name="hat" value="3"/>
-                        <label for="hat-option-04" class="hat-radio-option" style="background-image: url('images/stamps/hat04.png')">
-                    </div>
-                    <div>
-                        <input id="hat-option-05" type="radio" name="hat" value="4"/>
-                        <label for="hat-option-05" class="hat-radio-option" style="background-image: url('images/stamps/hat05.png')">
-                    </div>
-                    <div>
-                        <input id="hat-option-06" type="radio" name="hat" value="5"/>
-                        <label for="hat-option-06" class="hat-radio-option" style="background-image: url('images/stamps/hat06.png')">
-                    </div>
+                    <!-- contents are injected at runtime -->
                 </div>
                 <button id="add-hat-btn" class="btn">Add Hat</button>
             </div>
