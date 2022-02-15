@@ -1,16 +1,15 @@
 # TODO
-- publish on github sites
-- test with friends
-- release to reddit
 - copy to clipboard
-- post to reddit
+- post to imgur? reddit?
+- release to reddit
     - google analytics first
-- post to imgur?
 - duplicate hotkey (d)
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
 
 # DONE
+- publish on github sites
+- test with friends
 - handles get bigger hit areas
 - handles get special cursors
 - scale to flip
