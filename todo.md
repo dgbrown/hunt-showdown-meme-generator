@@ -1,4 +1,6 @@
 # TODO
+- text tool
+- masking tool
 - post to imgur? reddit?
 - release to reddit
 - layer down hotkey (pagedn)
