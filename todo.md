@@ -1,12 +1,12 @@
 # TODO
-- copy to clipboard
 - post to imgur? reddit?
 - release to reddit
-- duplicate hotkey (d)
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
 
 # DONE
+- duplicate hotkey (d)
+- copy to clipboard
 - google analytics
 - publish on github sites
 - test with friends
