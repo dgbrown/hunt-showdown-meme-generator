@@ -2,12 +2,12 @@
 - copy to clipboard
 - post to imgur? reddit?
 - release to reddit
-    - google analytics first
 - duplicate hotkey (d)
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
 
 # DONE
+- google analytics
 - publish on github sites
 - test with friends
 - handles get bigger hit areas
