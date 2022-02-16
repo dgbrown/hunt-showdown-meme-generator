@@ -154,6 +154,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         focusedHat?.focus()
     })
+
+    // copy img to clipboard
+    document.getElementById('copy-btn').addEventListener('click', (event) => {
+        let focusedHat = hats.find((x) => x.isFocused);
+        focusedHat?.unfocus();
+        app.render();
+
+        app.renderer.plugins.extract.canvas().toBlob((blob) => {
+            const data = [new ClipboardItem({[blob.type]: blob})];
+            navigator.clipboard.write(data).then(() => {
+                const addClassTemporarily = (elem, className, removeAfterMs, reset = false) => {
+                    const removeClass = (elem, className) => {
+                        let classes = elem.className.split(' ');
+                        const existingClassOccurenceIndex = classes.findIndex((x) => x === className);
+                        if(existingClassOccurenceIndex !== -1){
+                            classes.splice(existingClassOccurenceIndex, 1);
+                            elem.className = classes.join(' ')
+                        }
+                    }
+                    if(reset){
+                        removeClass(elem, className)
+                    }
+                    if(!elem.className.includes(className)){
+                        elem.className += ` ${className}`;
+                    }
+                    setTimeout(() => {
+                        removeClass(elem, className)
+                    }, removeAfterMs)
+                }
+                addClassTemporarily(event.target, 'btn-post-success', 1000, true)  
+            })
+        })
+
+        focusedHat?.focus()
+    })
     
 
     // delete focused hat

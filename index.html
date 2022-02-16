@@ -56,6 +56,7 @@
                 margin-right: 10px;
             }
             .btn {
+                position: relative;
                 display: inline-block;
                 padding: 8px 16px;
                 font-size: 1.5rem;
@@ -147,6 +148,34 @@
             .shortcuts-tooltip strong {
                 margin-right: 7px;
             }
+            .btn::after {
+                content: '';
+                position: absolute;
+                top: 55px;
+                font-size: 0.7em;
+                opacity: 0;
+                display: block;
+            }
+            .btn.btn-post-success::after {
+                color: #42814d;
+                animation-duration: 1s;
+                animation-name: btn-post-feedback;
+                animation-timing-function: cubic-bezier(1,0,1,1);
+                animation-iteration-count: 1;
+                animation-fill-mode: forwards;
+            }
+            #copy-btn.btn-post-success::after {
+                content: 'image copied successfully';
+                opacity: 1;
+            }
+            @keyframes btn-post-feedback {
+                from {
+                    opacity: 1;
+                }
+                to {
+                    opacity: 0;
+                }
+            }
         </style>
         <script src="main.js" type="module"></script>
     </head>
@@ -175,10 +204,8 @@
             </div>
             <div id="pixi-app-container" style="display: none"></div>
             <div id="bottom-btn-bar" class="btn-bar" style="display:none">
-                <div>
-                    <button id="export-btn" class="btn">Save Image</button>
-                    <div>(or right click, copy)</div>
-                </div>
+                <button id="export-btn" class="btn">Save Image</button>
+                <button id="copy-btn" class="btn">Copy to Clipboard</button>
             </div>
             <div style="flex-grow: 1"></div>
             <footer id="footer">
