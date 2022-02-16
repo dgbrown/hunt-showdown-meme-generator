@@ -239,6 +239,12 @@ export class SpriteWithHandles extends PIXI.Graphics {
     flipVertical() {
         this.#sprite.scale.y *= -1
     }
+    get scale() {
+        return this.#sprite.scale;
+    }
+    get texture() {
+        return this.#sprite.texture;
+    }
 }
 
 export default SpriteWithHandles
