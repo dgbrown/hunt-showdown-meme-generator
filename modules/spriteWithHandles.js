@@ -2,7 +2,7 @@ import * as PIXI from './vendor/pixi.mjs'
 
 export const handles = []
 
-const HANDLE_SIZE_DEFAULT = 12;
+const HANDLE_SIZE_DEFAULT = 13;
 const HANDLE_HITAREA_MULTIPLIER = 2;
 
 class RotationHandle extends PIXI.Graphics {

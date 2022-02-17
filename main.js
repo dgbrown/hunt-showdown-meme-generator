@@ -53,6 +53,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let hats = []
 
+    const getInverseStageScale = () => {
+        return (1/app.stage.scale.x);
+    }
+
     const resizeApp = (() => {
         let handleResizeTimeoutHandle;
         const _resizeApp = () => {
@@ -67,7 +71,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 let scale = Math.min(newWidth / width, 1)
                 app.stage.scale.set(scale)
                 const handleScale = 1/scale
-                handles.forEach((handle) => handle.scale.set(handleScale))
+                handles.forEach((handle) => handle.scale.set(getInverseStageScale()))
             }
         }
         return (debounceMs = 100) => {
@@ -119,7 +123,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     const addHat = (texture) => {
-        let inverseStageScale = 1/app.stage.scale.x;
+        const inverseStageScale = getInverseStageScale()
         let hat = new SpriteWithHandles(texture, inverseStageScale, debugGraphics);
         hat.onFocus = onHatFocused;
         hat.x = app.renderer.width * 0.5 * inverseStageScale;
