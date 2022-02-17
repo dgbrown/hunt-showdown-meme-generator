@@ -1,4 +1,8 @@
 # TODO
+- file input type validation
+- mobile
+    - scrolling
+    - handles need to be resolution independent
 - text tool
 - masking tool
 - post to imgur? reddit?
