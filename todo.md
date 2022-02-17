@@ -1,8 +1,6 @@
 # TODO
 - file input type validation
-- mobile
-    - scrolling
-    - handles need to be resolution independent
+- mobile resolution scaling
 - text tool
 - masking tool
 - post to imgur? reddit?
@@ -11,6 +9,7 @@
 - layer up hotkey (pageup)
 
 # DONE
+- mobile scrolling
 - duplicate hotkey (d)
 - copy to clipboard
 - google analytics

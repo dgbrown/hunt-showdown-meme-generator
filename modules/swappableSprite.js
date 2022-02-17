@@ -1,3 +1,5 @@
+import * as PIXI from './vendor/pixi.mjs'
+
 class SwappableSprite extends PIXI.Graphics {
     #sprite;
     #originalWidth;

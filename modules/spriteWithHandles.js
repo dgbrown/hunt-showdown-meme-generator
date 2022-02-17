@@ -1,3 +1,5 @@
+import * as PIXI from './vendor/pixi.mjs'
+
 export const handles = []
 
 class RotationHandle extends PIXI.Graphics {
@@ -32,6 +34,8 @@ export class SpriteWithHandles extends PIXI.Graphics {
     maintainAspectRatio = true;
     isFocused = false;
     onFocus;
+    onPointerDown;
+    onPointerUp;
 
     #sprite;
 
@@ -79,6 +83,7 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.#sprite.cursor = 'move'
         this.#sprite.anchor.set(0.5);
         this.#sprite.on('pointerdown', (event) => {
+            event.data.originalEvent.preventDefault(); // disable browser default touch behaviour
             this.focus()
             this.#isBeingDragged = true;
             this.#dragEventData = event.data;
@@ -87,10 +92,18 @@ export class SpriteWithHandles extends PIXI.Graphics {
                 x: pointerPosition.x - this.x,
                 y: pointerPosition.y - this.y
             }
+            if(this.onPointerDown){
+                this.onPointerDown(this);
+            }
         });
-        this.#sprite.on('pointerup', (event) => {
-            this.#isBeingDragged = false
-            this.#dragEventData = null
+        ['pointerup', 'pointerupoutside'].forEach((eventType) => {
+            this.#sprite.on(eventType, (event) => {
+                this.#isBeingDragged = false;
+                this.#dragEventData = null;
+                if(this.onPointerUp){
+                    this.onPointerUp(this);
+                }
+            });
         });
         this.addChild(this.#sprite);
 
@@ -104,9 +117,21 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.#bottomLeftRotationHandle.buttonMode = true;
         [this.#topLeftRotationHandle, this.#topRightRotationHandle, this.#bottomRightRotationHandle, this.#bottomLeftRotationHandle].forEach((handle) => {
             this.#handles.push(handle)
-            handle.on('pointerdown', (event) => this.onRotationHandleDragStart(handle, event.data))
-            handle.on('pointerup', (event) => this.onRotationHandleDragStop(handle))
-            handle.on('pointerupoutside', (event) => this.onRotationHandleDragStop(handle))
+            handle.on('pointerdown', (event) => {
+                event.data.originalEvent.preventDefault(); // disable browser default touch behaviour
+                this.onRotationHandleDragStart(handle, event.data)
+                if(this.onPointerDown){
+                    this.onPointerDown(this)
+                }
+            });
+            ['pointerup', 'pointerupoutside'].forEach((eventType) => {
+                handle.on(eventType, (event) => {
+                    this.onRotationHandleDragStop(handle);
+                    if(this.onPointerUp){
+                        this.onPointerUp(this);
+                    }
+                })
+            });
         })
 
         this.#topScaleHandle = new ScaleHandle();
@@ -118,10 +143,22 @@ export class SpriteWithHandles extends PIXI.Graphics {
         this.#leftScaleHandle = new ScaleHandle();
         this.#leftScaleHandle.cursor = 'ew-resize';
         [this.#topScaleHandle, this.#rightScaleHandle, this.#bottomScaleHandle, this.#leftScaleHandle].forEach((handle) => {
-            this.#handles.push(handle)
-            handle.on('pointerdown', (event) => this.onScaleHandleDragStart(handle, event.data))
-            handle.on('pointerup', (event) => this.onScaleHandleDragStop(handle))
-            handle.on('pointerupoutside', (event) => this.onScaleHandleDragStop(handle))
+            this.#handles.push(handle);
+            handle.on('pointerdown', (event) => {
+                event.data.originalEvent.preventDefault(); // disable browser default touch behaviour
+                this.onScaleHandleDragStart(handle, event.data);
+                if(this.onPointerDown){
+                    this.onPointerDown(this);
+                }
+            });
+            ['pointerup', 'pointerupoutside'].forEach((eventType) => {
+                handle.on(eventType, (event) => {
+                    this.onScaleHandleDragStop(handle);
+                    if(this.onPointerUp){
+                        this.onPointerUp(this);
+                    }
+                })
+            });
         })
 
         this.#handles.forEach((handle) => {

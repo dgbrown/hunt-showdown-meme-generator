@@ -1,3 +1,4 @@
+import * as PIXI from './modules/vendor/pixi.mjs'
 import SwappableSprite from "./modules/swappableSprite.js";
 import TrackedKeyboardKey from "./modules/trackedKeyboardKey.js";
 import SpriteWithHandles, { handles } from './modules/spriteWithHandles.js'
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         })
     })
     
+    // init pixi
     let app = new PIXI.Application({ 
         width: CANVAS_WIDTH, 
         height: CANVAS_HEIGHT, 
@@ -43,6 +45,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         preserveDrawingBuffer: true // so we can extract the buffer for download
     });
     document.getElementById('pixi-app-container').appendChild(app.view);
+    // enable mobile scroll on canvas
+    app.renderer.view.style.touchAction = 'auto';
+    app.renderer.plugins.interaction.autoPreventDefault = false;
 
     let hatTextures = hatImagePaths.map((hatImagePath) => PIXI.Texture.from(hatImagePath))
 
@@ -52,7 +57,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         hats.forEach((hat) => {
             hat.unfocus()
         })
-    })
+    });
     app.stage.addChild(uploadedImageSprite)
 
     let debugGraphics = new PIXI.Graphics();
