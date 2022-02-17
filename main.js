@@ -165,7 +165,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let uploadedImageSprite = new SwappableSprite()
     uploadedImageSprite.interactive = true
-    uploadedImageSprite.on('pointerdown', unfocusAllHats);
+    uploadedImageSprite.on('mouseup', (event) => {
+        event.data.originalEvent.preventDefault();
+        unfocusAllHats()
+    });
     app.stage.addChild(uploadedImageSprite)
 
     let debugGraphics = new PIXI.Graphics();
