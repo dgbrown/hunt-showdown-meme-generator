@@ -1,6 +1,6 @@
 # TODO
+- mobile hat action buttons
 - file input type validation
-- mobile resolution scaling
 - text tool
 - masking tool
 - post to imgur? reddit?
@@ -9,6 +9,7 @@
 - layer up hotkey (pageup)
 
 # DONE
+- mobile resolution scaling
 - mobile scrolling
 - duplicate hotkey (d)
 - copy to clipboard

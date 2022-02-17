@@ -2,29 +2,32 @@ import * as PIXI from './vendor/pixi.mjs'
 
 export const handles = []
 
+const HANDLE_SIZE_DEFAULT = 12;
+const HANDLE_HITAREA_MULTIPLIER = 2;
+
 class RotationHandle extends PIXI.Graphics {
-    constructor(diameter = 10){
+    constructor(diameter = HANDLE_SIZE_DEFAULT){
         super();
         this.interactive = true;
         this.lineStyle(1, 0x000000);
         this.beginFill(0xFFFFFF);
         this.drawCircle(0, 0, diameter * 0.5);
         this.endFill();
-        const hitSize = diameter * 1.5;
+        const hitSize = diameter * HANDLE_HITAREA_MULTIPLIER;
         this.hitArea = new PIXI.Rectangle(hitSize * -0.5, hitSize * -0.5, hitSize, hitSize)
         handles.push(this);
     }
 }
 
 class ScaleHandle extends PIXI.Graphics {
-    constructor(size = 10){
+    constructor(size = HANDLE_SIZE_DEFAULT){
         super();
         this.interactive = true;
         this.lineStyle(1, 0x000000);
         this.beginFill(0xFFFFFF);
         this.drawRect(size * -0.5, size * -0.5, size, size);
         this.endFill();
-        const hitSize = size * 1.5;
+        const hitSize = size * HANDLE_HITAREA_MULTIPLIER;
         this.hitArea = new PIXI.Rectangle(hitSize * -0.5, hitSize * -0.5, hitSize, hitSize)
         handles.push(this);
     }
