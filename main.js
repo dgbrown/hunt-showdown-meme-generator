@@ -51,18 +51,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let hatTextures = hatImagePaths.map((hatImagePath) => PIXI.Texture.from(hatImagePath))
 
-    let uploadedImageSprite = new SwappableSprite()
-    uploadedImageSprite.interactive = true
-    uploadedImageSprite.on('pointerdown', (event) => {
-        hats.forEach((hat) => {
-            hat.unfocus()
-        })
-    });
-    app.stage.addChild(uploadedImageSprite)
-
-    let debugGraphics = new PIXI.Graphics();
-    app.stage.addChild(debugGraphics)
-
     let hats = []
 
     const resizeApp = (() => {
@@ -119,8 +107,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         reader.readAsDataURL(file)
     });
 
-    // only one hat focused at a time
+    const unfocusAllHats = () => {
+        hats.forEach((x) => x.unfocus())
+        document.getElementById('mobile-action-btn-container').style.display = 'none';
+    }
+
     const onHatFocused = (hat) => {
+        document.getElementById('mobile-action-btn-container').style.display = null;
+        // only one hat focused at a time
         hats.forEach((x) => x === hat || x.unfocus())
     }
 
@@ -135,6 +129,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
         hat.focus()
         return hat;
     }
+
+    const flipSelectedHat = () => {
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            hat.flipHorizontal()
+        }
+    }
+
+    const duplicateSelectedHat = () => {
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            let texture = hat.texture;
+            let clone = addHat(texture)
+            clone.rotation = hat.rotation;
+            clone.scale.x = hat.scale.x;
+            clone.scale.y = hat.scale.y;
+        }
+    }   
+
+    const deleteSelectedHat = () => {
+        let hatIndex = hats.findIndex((x) => x.isFocused)
+        if(hatIndex >= 0){
+            let hat = hats[hatIndex]
+            app.stage.removeChild(hat)
+            hats.splice(hatIndex, 1)
+            hat.destroy()
+            hat = null
+        }
+    }
+
+    let uploadedImageSprite = new SwappableSprite()
+    uploadedImageSprite.interactive = true
+    uploadedImageSprite.on('pointerdown', unfocusAllHats);
+    app.stage.addChild(uploadedImageSprite)
+
+    let debugGraphics = new PIXI.Graphics();
+    app.stage.addChild(debugGraphics)
 
     // add new hat
     document.getElementById('add-hat-btn').addEventListener('click', (event) => {
@@ -200,6 +231,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         focusedHat?.focus()
     })
 
+    //// hat action buttons
+    document.getElementById('flip-btn').addEventListener('click', flipSelectedHat)
+    document.getElementById('duplicate-btn').addEventListener('click', duplicateSelectedHat)
+    document.getElementById('delete-btn').addEventListener('click', deleteSelectedHat)
+
     //// hotkeys
     const hotkeyDefinitions = [];
 
@@ -208,12 +244,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         description: 'flip horizontally' 
     });
     const flipHatHorizontalKey = new TrackedKeyboardKey('f')
-    flipHatHorizontalKey.onPress = () => {
-        let hat = hats.find((x) => x.isFocused)
-        if(hat){
-            hat.flipHorizontal()
-        }
-    }
+    flipHatHorizontalKey.onPress = flipSelectedHat;
 
     hotkeyDefinitions.push({
         label: 'R',
@@ -232,16 +263,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         description: 'duplicate' 
     });
     const duplicateHatKey = new TrackedKeyboardKey('d')
-    duplicateHatKey.onPress = () => {
-        let hat = hats.find((x) => x.isFocused)
-        if(hat){
-            let texture = hat.texture;
-            let clone = addHat(texture)
-            clone.rotation = hat.rotation;
-            clone.scale.x = hat.scale.x;
-            clone.scale.y = hat.scale.y;
-        }
-    }
+    duplicateHatKey.onPress = duplicateSelectedHat;
 
     hotkeyDefinitions.push({
         label: 'SHIFT',
@@ -268,23 +290,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         description: 'remove selected hat' 
     });
     const deleteHatKey = new TrackedKeyboardKey('Delete')
-    deleteHatKey.onPress = () => {
-        let hatIndex = hats.findIndex((x) => x.isFocused)
-        if(hatIndex >= 0){
-            let hat = hats[hatIndex]
-            app.stage.removeChild(hat)
-            hats.splice(hatIndex, 1)
-            hat.destroy()
-            hat = null
-        }
-    }
+    deleteHatKey.onPress = deleteSelectedHat;
 
     hotkeyDefinitions.push({
         label: 'ESC',
         description: 'unfocus all'
     })
     const unfocusKey = new TrackedKeyboardKey('Escape');
-    unfocusKey.onPress = () => hats.forEach((x) => x.unfocus())
+    unfocusKey.onPress = unfocusAllHats;
 
     // generate shortcuts markup
     const shortcutsContainerElem = document.querySelector('.shortcuts-tooltip ul')

@@ -1,5 +1,4 @@
 # TODO
-- mobile hat action buttons
 - file input type validation
 - text tool
 - masking tool
@@ -9,6 +8,7 @@
 - layer up hotkey (pageup)
 
 # DONE
+- mobile hat action buttons
 - mobile resolution scaling
 - mobile scrolling
 - duplicate hotkey (d)
