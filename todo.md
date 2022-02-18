@@ -1,16 +1,17 @@
 # TODO
-- file input type validation
 - text tool
 - masking tool
 - post to imgur? reddit?
-- release to reddit
+- favicon
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
 
 # DONE
+- file input type validation
 - mobile hat action buttons
 - mobile resolution scaling
 - mobile scrolling
+- release to reddit
 - duplicate hotkey (d)
 - copy to clipboard
 - google analytics
