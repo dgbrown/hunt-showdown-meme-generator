@@ -279,11 +279,23 @@ export class SpriteWithHandles extends PIXI.Graphics {
     flipVertical() {
         this.#sprite.scale.y *= -1
     }
-    get scale() {
+    get spriteScale() {
         return this.#sprite.scale;
     }
-    get texture() {
+    get spriteTexture() {
         return this.#sprite.texture;
+    }
+    get spriteBlendMode() {
+        return this.#sprite.blendMode;
+    }
+    set spriteBlendMode(value) {
+        this.#sprite.blendMode = value;
+    }
+    get spriteAlpha() {
+        return this.#sprite.alpha;
+    }
+    set spriteAlpha(value) {
+        this.#sprite.alpha = value;
     }
 }
 

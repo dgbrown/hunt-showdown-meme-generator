@@ -152,11 +152,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const duplicateSelectedHat = () => {
         let hat = hats.find((x) => x.isFocused)
         if(hat){
-            let texture = hat.texture;
+            let texture = hat.spriteTexture;
             let clone = addHat(texture)
             clone.rotation = hat.rotation;
-            clone.scale.x = hat.scale.x;
-            clone.scale.y = hat.scale.y;
+            clone.spriteScale.x = hat.spriteScale.x;
+            clone.spriteScale.y = hat.spriteScale.y;
         }
     }   
 
@@ -169,6 +169,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
             hat.destroy()
             hat = null
             hideMobileActionButtons()
+        }
+    }
+
+    const toggleSelectedHatBlendMode = () => {
+        let hat = hats.find((x) => x.isFocused)
+        if(hat){
+            console.log(hat.spriteAlpha)
+            if(hat.spriteBlendMode === PIXI.BLEND_MODES.NORMAL && hat.spriteAlpha === 1){
+                hat.spriteAlpha = 0.90;
+            }else if(hat.spriteBlendMode === PIXI.BLEND_MODES.NORMAL && hat.spriteAlpha === 0.90){
+                hat.spriteAlpha = 1;
+                hat.spriteBlendMode = PIXI.BLEND_MODES.MULTIPLY;
+            }else if(hat.spriteBlendMode === PIXI.BLEND_MODES.MULTIPLY){
+                hat.spriteBlendMode = PIXI.BLEND_MODES.SCREEN;
+            }else if(hat.spriteBlendMode === PIXI.BLEND_MODES.SCREEN){
+                hat.spriteBlendMode = PIXI.BLEND_MODES.NORMAL;
+            }
         }
     }
 
@@ -249,6 +266,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     //// hat action buttons
     document.getElementById('flip-btn').addEventListener('click', flipSelectedHat)
+    document.getElementById('blend-btn').addEventListener('click', toggleSelectedHatBlendMode)
     document.getElementById('duplicate-btn').addEventListener('click', duplicateSelectedHat)
     document.getElementById('delete-btn').addEventListener('click', deleteSelectedHat)
 
@@ -273,6 +291,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             hat.resetAdjustments()
         }
     }
+
+    hotkeyDefinitions.push({
+        label: 'B',
+        description: 'change blend mode' 
+    });
+    const toggleBlendModeKey = new TrackedKeyboardKey('b');
+    toggleBlendModeKey.onPress = toggleSelectedHatBlendMode;
 
     hotkeyDefinitions.push({
         label: 'D',
