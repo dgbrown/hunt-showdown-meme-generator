@@ -111,13 +111,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
         reader.readAsDataURL(file)
     });
 
-    const unfocusAllHats = () => {
-        hats.forEach((x) => x.unfocus())
+    const hideMobileActionButtons = () => {
         document.getElementById('mobile-action-btn-container').style.display = 'none';
     }
 
-    const onHatFocused = (hat) => {
+    const showMobileActionButtons = () => {
         document.getElementById('mobile-action-btn-container').style.display = null;
+    }
+
+    const unfocusAllHats = () => {
+        hats.forEach((x) => x.unfocus())
+        hideMobileActionButtons()
+    }
+
+    const onHatFocused = (hat) => {
+        showMobileActionButtons()
         // only one hat focused at a time
         hats.forEach((x) => x === hat || x.unfocus())
     }
@@ -160,6 +168,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             hats.splice(hatIndex, 1)
             hat.destroy()
             hat = null
+            hideMobileActionButtons()
         }
     }
 
