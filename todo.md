@@ -2,11 +2,11 @@
 - text tool
 - masking tool
 - post to imgur? reddit?
-- favicon
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
 
 # DONE
+- favicon
 - file input type validation
 - mobile hat action buttons
 - mobile resolution scaling
