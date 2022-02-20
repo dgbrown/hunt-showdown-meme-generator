@@ -1,6 +1,11 @@
 # TODO
 - text tool
 - masking tool
+- undo button
+- hat library
+    - more hats with head cutout
+- rework change blends mode action as opacity slider
+- hide actions behind meatballs
 - post to imgur? reddit?
 - layer down hotkey (pagedn)
 - layer up hotkey (pageup)
