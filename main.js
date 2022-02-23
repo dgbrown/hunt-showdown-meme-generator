@@ -9,16 +9,20 @@ const CANVAS_BACKGROUND_COLOR = 0x222222
 
 document.addEventListener("DOMContentLoaded", (event) => {
     let hatImagePaths = [
-        'images/stamps/hat01.png',
-        'images/stamps/hat02.png',
-        'images/stamps/hat09.png',
-        'images/stamps/hat08.png',
-        'images/stamps/hat10.png',
-        'images/stamps/hat06.png',
-        'images/stamps/hat07.png',
-        'images/stamps/hat05.png',
-        'images/stamps/hat03.png',
-        'images/stamps/hat04.png'
+        'images/stamps/hunt-brown-01.png',
+        'images/stamps/hunt-sheriff.png',
+        'images/stamps/hunt-beige-01.png',
+        'images/stamps/hunt-beige-02.png',
+        'images/stamps/hunt-darkgrey-01.png',
+        'images/stamps/hunt-grey-01.png',
+        'images/stamps/hunt-white-01.png',
+        'images/stamps/hunt-staw-01.png',
+        'images/stamps/hunt-round-01.png',
+        'images/stamps/hunt-hillbilly-01.png',
+        'images/stamps/hunt-hillbilly-02.png',
+        'images/stamps/hunt-trickgun.png',
+        'images/stamps/hunt-phantom-01.png',
+        'images/stamps/hunt-oni.png'
     ]
     
     const hatScrollerElem = document.getElementById('hat-scroller');
